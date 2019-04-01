@@ -13,12 +13,9 @@ const propTypes = {
 function Content (props) {
   return (
     <View style={ styles.container }>
-      <Text>Content</Text>
       {
-        props.mail ? (
-          <Text>{ props.mail.body }</Text>
-        ) : (
-          <Text>initial empty state</Text>
+        props.mail && (
+          <Text>{ props.mail.content }</Text>
         )
       }
     </View>
@@ -28,7 +25,8 @@ function Content (props) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#e28ed9'
+    backgroundColor: '#FFFFFF',
+    padding: 20
   }
 })
 

@@ -1,0 +1,12 @@
+[{
+  "name": "Work",
+  "mail": ["@work.com"]
+},
+{
+  "name": "Family",
+  "mail": ["john@mail.com"]
+},
+{
+  "name": "All",
+  "mail": []
+}]

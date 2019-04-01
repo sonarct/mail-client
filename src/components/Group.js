@@ -2,13 +2,15 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {
   Text,
-  TouchableHighlight,
+  TouchableWithoutFeedback,
+  StyleSheet,
   View
 } from 'react-native'
 
 const propTypes = {
+  active: PropTypes.bool,
   group: PropTypes.shape({
-    id: PropTypes.number,
+    id: PropTypes.string,
     name: PropTypes.string
   }),
   handleGroupPress: PropTypes.func
@@ -16,18 +18,29 @@ const propTypes = {
 
 function Group (props) {
   return (
-    <View key={ props.group.id }>
-    <TouchableHighlight
-      onPress={ props.handleGroupPress }
-    >
-      <Text>
-        { props.group.name }
-      </Text>
-    </TouchableHighlight>
+    <View key={ props.group.id } style={ styles.container }>
+      <TouchableWithoutFeedback
+        onPress={ props.handleGroupPress }
+      >
+        <Text style={ props.active && styles.active }
+        >
+          { props.group.name }
+        </Text>
+      </TouchableWithoutFeedback>
     </View>
   )
 }
 
 Group.propTypes = propTypes
+
+const styles = StyleSheet.create({
+  container: {
+    height: 100,
+    padding: 16
+  },
+  active: {
+    fontWeight: 'bold'
+  }
+})
 
 export default Group

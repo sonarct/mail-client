@@ -2,12 +2,12 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {
   StyleSheet,
-  Text,
   View
 } from 'react-native'
 import GroupList from './GroupList'
 
 const propTypes = {
+  activeGroupId: PropTypes.string,
   groups: PropTypes.arrayOf(PropTypes.object),
   handleGroupPress: PropTypes.func
 }
@@ -15,8 +15,8 @@ const propTypes = {
 function Sidebar (props) {
   return (
     <View style={ styles.container }>
-      <Text>Sidebar</Text>
       <GroupList
+        activeGroupId={ props.activeGroupId }
         groups={ props.groups }
         handleGroupPress={ props.handleGroupPress }
       />
@@ -26,7 +26,7 @@ function Sidebar (props) {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#4286f4',
+    backgroundColor: '#AAAAAA',
     width: 300
   }
 })

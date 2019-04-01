@@ -1,31 +1,64 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Text, View, TouchableOpacity } from 'react-native'
+import { Text, View, TouchableOpacity, StyleSheet, FlatList } from 'react-native'
 
 const propTypes = {
-  list: PropTypes.arrayOf(PropTypes.object),
+  list: PropTypes.arrayOf(PropTypes.shape({
+    subject: PropTypes.string,
+    id: PropTypes.string
+  })),
+  activeMailId: PropTypes.string,
   handleMailSelect: PropTypes.func
 }
 
 function MailList (props) {
   return (
-    <View>
-      {
-        props.list.map(mail => (
+    <FlatList
+      data={ props.list.map(mail => ({ ...mail, key: mail.id })) }
+      renderItem={ ({ item }) => (
           <TouchableOpacity
-            key={ mail.id }
-            onPress={ () => props.handleMailSelect(mail.id) }
+            key={ item.id }
+            onPress={ () => props.handleMailSelect(item.id) }
+            style={ { ...styles.mail, ...(props.activeMailId === item.id) && styles.active } }
           >
-            <Text>
-              { mail.theme }
+            <Text style={ !item.read && styles.unread }>
+              { item.from }
+            </Text>
+            <Text
+              style={ !item.read && styles.unread }
+              ellipsizeMode="tail"
+              numberOfLines={ 1 }
+            >
+              { item.subject }
             </Text>
           </TouchableOpacity>
-        ))
-      }
-    </View>
+      )}
+      ItemSeparatorComponent={ () => (
+        <View style={ styles.separator } />
+      )}
+    >
+    </FlatList>
   )
 }
 
 MailList.propTypes = propTypes
+
+const styles = StyleSheet.create({
+  mail: {
+    height: 60,
+    padding: 16,
+    backgroundColor: '#FFFFFF'
+  },
+  unread: {
+    fontWeight: 'bold'
+  },
+  active: {
+    backgroundColor: '#BBBBBB'
+  },
+  separator: {
+    height: 1,
+    backgroundColor: '#444444'
+  }
+})
 
 export default MailList;
